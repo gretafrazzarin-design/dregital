@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Dregital</title>
+<style>
+:root{--pink:#c2185b;--pink2:#ad1457;--pinksoft:#fce4ec;--ink:#222;--muted:#717171;--line:#e7e7e7;--bg:#fff;--soft:#f7f7f7;--r:18px}*{box-sizing:border-box}body{margin:0;background:#eee;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}.app{max-width:430px;min-height:100vh;margin:auto;background:var(--bg);padding-bottom:84px}.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);padding:20px 20px 10px;border-bottom:1px solid transparent}.brand{font-size:21px;font-weight:800;letter-spacing:-.7px}.content{padding:12px 20px}.screen{display:none}.screen.active{display:block}.h1{font-size:30px;line-height:1.05;margin:7px 0 20px;letter-spacing:-1px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--pink);font-weight:750}.section{margin-top:28px}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.sectiontitle{font-size:18px;font-weight:750}.link{border:0;background:none;color:var(--pink);font:inherit;font-size:13px}.stats{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:9px}.stat{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff}.stat b{display:block;font-size:23px}.stat span{font-size:11px;color:var(--muted)}.season{border:1px solid var(--line);border-radius:20px;padding:16px;background:#fff}.seasonrow{display:flex;justify-content:space-between;align-items:flex-start}.seasonbig{font-size:23px;font-weight:800;margin-top:4px}.seasonbadge{font-size:27px}.moment-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.moment{position:relative;min-height:88px;padding:14px;border:1px solid var(--line);border-radius:15px;background:var(--soft);display:flex;flex-direction:column;gap:5px}.momentlabel{font-size:11px;color:var(--muted)}.moment b{font-size:18px}.swatch{position:absolute;right:13px;bottom:13px;width:27px;height:27px;border-radius:50%;background:#7a4b36;border:1px solid #68402f}.material{position:absolute;right:13px;bottom:9px;font-size:29px;color:#888}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:#fff}.garment{height:175px;background:#f5f5f5;position:relative;display:grid;place-items:center;overflow:hidden}.garment img{width:100%;height:100%;object-fit:cover}.garment .shape{width:78px;height:110px;border:2px solid #777;border-radius:24px 24px 12px 12px;background:#fff}.cardbody{padding:10px}.cardbody b{font-size:13px}.cardbody span{display:block;color:var(--muted);font-size:11px;margin-top:3px}.fav{position:absolute;right:9px;top:9px;width:34px;height:34px;border-radius:50%;border:1px solid #ddd;background:#fff;display:grid;place-items:center;color:#777;z-index:2;cursor:pointer}.fav svg{width:17px;height:17px;stroke-width:2}.fav.is-fav{color:var(--pink);background:var(--pinksoft);border-color:#efb2ca}.fav.is-fav svg{fill:currentColor}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:430px;width:100%;height:76px;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;z-index:20}.nav{border:0;background:none;color:#777;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:10px;font-weight:650}.nav.active{color:var(--pink)}.nav svg{width:21px;height:21px;stroke-width:2}.add{width:46px;height:46px;border:0;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;margin-top:-13px;box-shadow:0 4px 16px #c2185b33}.btn{width:100%;border:0;border-radius:13px;padding:14px;background:var(--pink);color:#fff;font-size:14px;font-weight:750}.btn:active{background:var(--pink2)}.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}.stack{display:grid;gap:10px}.row{display:flex;gap:8px;overflow:auto;padding-bottom:2px}.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:9px 13px;white-space:nowrap;font-size:12px}.chip.selected{background:var(--pinksoft);border-color:#f2b5cd;color:var(--pink2)}.filters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 18px}.filter{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:11px}.filter select,.input{width:100%;min-height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:0 12px;color:var(--ink);font:inherit}.search{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:13px;padding:0 12px;height:46px}.search input{border:0;outline:0;width:100%;font:inherit}.search svg{color:#777}.hero{border:1px dashed #ccc;border-radius:20px;padding:28px;text-align:center;background:#fff}.hero-icon{width:54px;height:54px;border-radius:50%;background:var(--pinksoft);color:var(--pink);display:grid;place-items:center;margin:0 auto 13px}.tipgrid{display:grid;gap:10px}.tip{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff}.tip b{font-size:13px}.tip p{font-size:12px;color:var(--muted);line-height:1.4;margin:6px 0 0}.inspire{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pin{height:125px;border-radius:13px;background:#f2f2f2;border:1px solid var(--line);overflow:hidden}.pin img{width:100%;height:100%;object-fit:cover}.outfit{height:220px;border-radius:18px;background:#f2f2f2;border:1px solid var(--line);overflow:hidden}.outfit img{width:100%;height:100%;object-fit:cover}.modal{position:fixed;inset:0;background:#0005;z-index:50;display:none;align-items:flex-end}.modal.open{display:flex}.sheet{background:#fff;width:100%;max-width:430px;margin:auto;border-radius:22px 22px 0 0;padding:20px;max-height:90vh;overflow:auto}.sheethead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.close{border:0;background:#f5f5f5;width:36px;height:36px;border-radius:50%}.upload{border:1px dashed #cfcfcf;border-radius:18px;padding:24px;text-align:center;background:#fafafa}.preview{width:100%;height:230px;border-radius:15px;background:#f5f5f5;object-fit:contain;display:none}.label{display:block;font-size:12px;font-weight:700;margin:14px 0 6px}.checkgrid{display:flex;flex-wrap:wrap;gap:7px}.check{border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 11px;font-size:12px}.check.active{background:var(--pinksoft);border-color:#efb2ca;color:var(--pink2)}.empty{color:var(--muted);font-size:13px;padding:20px 0;text-align:center}.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#222;color:#fff;padding:11px 15px;border-radius:12px;font-size:12px;z-index:100;display:none}.toast.show{display:block}@media(min-width:431px){body{padding:20px 0}.app{border-radius:24px;overflow:hidden;box-shadow:0 10px 40px #0002}.bottom{bottom:20px;border-radius:0 0 24px 24px}}
+
+/* DREGITAL COMPACT NAV */
+.bottom{
+  height:68px;
+  grid-template-columns:repeat(5,1fr);
+  padding:0 8px;
+}
+.nav{
+  gap:3px;
+  font-size:9px;
+  min-width:0;
+  padding:5px 0;
+}
+.nav svg{
+  width:17px;
+  height:17px;
+  stroke-width:2;
+}
+.nav .add{
+  width:38px;
+  height:38px;
+  margin-top:-8px;
+}
+.app{padding-bottom:76px}
+
+
+/* DREGITAL PROFILE */
+.avatar{
+  width:38px;height:38px;border-radius:50%;border:1px solid #f0b4cb;
+  background:var(--pinksoft);color:var(--pink2);font-weight:800;
+  display:grid;place-items:center;font-size:12px;cursor:pointer;
+  flex:0 0 auto;
+}
+.avatar.large{width:54px;height:54px;font-size:15px}
+#profileAvatar{position:absolute;right:20px;top:14px}
+.profilehead{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.profile-title{font-size:24px;margin:3px 0 0}
+.back{border:0;background:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:var(--ink)}
+.back svg{width:19px;height:19px}
+.settings-list{border-top:1px solid var(--line)}
+.setting{width:100%;min-height:64px;padding:0;border:0;border-bottom:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:space-between;color:var(--ink);text-align:left}
+.setting span{display:flex;align-items:center;gap:13px}
+.setting svg{width:19px;height:19px;color:var(--pink)}
+.setting>svg{color:#999;width:17px}
+.setting b{font-size:14px}
+.profile-note{margin-top:24px;padding:16px;border-radius:16px;background:var(--soft);display:grid;gap:5px}
+.profile-note b{font-size:13px}
+.profile-note span{font-size:12px;color:var(--muted);line-height:1.45}
+
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<header class="top"><div class="brand">dregital</div><button id="profileAvatar" class="avatar" aria-label="Apri il mio profilo">GF</button></header>
+<main class="content">
+<section class="screen active" id="home">
+<div class="eyebrow">Benvenuta</div><h1 class="h1">Il tuo armadio,<br>in un posto solo.</h1>
+<div class="stats"><div class="stat"><b id="statTotal">0</b><span>Capi</span></div><div class="stat"><b id="statFav">0</b><span>Preferiti</span></div><div class="stat"><b id="statOutfit">0</b><span>Outfit</span></div></div>
+<div class="section"><div class="sectionhead"><div class="sectiontitle">Stagione attuale</div></div><div class="season"><div class="seasonrow"><div><div class="eyebrow">AUTUNNO</div><div class="seasonbig">Il momento dell'anno</div></div><span class="seasonbadge">🍂</span></div><div class="moment-grid"><div class="moment"><span class="momentlabel">Colore del momento</span><b>Caffè</b><span class="swatch"></span></div><div class="moment"><span class="momentlabel">Materiale del momento</span><b>Lana</b><span class="material">◌</span></div></div></div></div>
+<div class="section"><div class="sectionhead"><div class="sectiontitle">I tuoi preferiti</div><button class="link" data-go="wardrobe">Vedi tutto</button></div><div class="grid" id="homeFavs"></div></div>
+<div class="section"><div class="sectionhead"><div class="sectiontitle">Inspiration</div><button class="link" data-go="inspiration">Apri</button></div><div class="inspire" id="homeInspiration"></div></div>
+<div class="section"><div class="sectionhead"><div class="sectiontitle">Abbinamenti</div></div><div class="tipgrid"><div class="tip"><b>☕ Caffè + beige + bianco</b><p>Una combinazione morbida e facile da usare nei look autunnali.</p></div><div class="tip"><b>🧶 Lana + cotone</b><p>Bilancia texture e peso: ideale per un outfit stratificato.</p></div></div></div>
+</section>
+<section class="screen" id="wardrobe"><div class="eyebrow">Il tuo guardaroba</div><h1 class="h1">Armadio</h1><div class="filters"><label class="filter">Stagione<select id="wardSeason"><option value="">Tutte</option><option>Primavera</option><option>Estate</option><option>Autunno</option><option>Inverno</option></select></label><label class="filter">Stile<select id="wardStyle"><option value="">Tutti</option><option>Elegante</option><option>Da sera</option><option>Da giorno</option><option>Comodo</option><option>Sportivo</option></select></label></div><div class="grid" id="wardrobeGrid"></div></section>
+<section class="screen" id="favorites">
+<div class="eyebrow">IL TUO ARMADIO</div>
+<h1 class="h1">Preferiti</h1>
+<p class="muted" style="margin-top:-10px;margin-bottom:18px">I capi che vuoi tenere sempre a portata di mano.</p>
+<div id="favoritesGrid" class="grid"></div>
+</section>
+<section class="screen" id="search"><div class="eyebrow">Trova un capo</div><h1 class="h1">Cerca</h1><div class="search"><i data-lucide="search"></i><input id="searchInput" placeholder="es. jeans, nero, elegante"></div><div class="filters"><label class="filter">Stagione<select id="searchSeason"><option value="">Tutte</option><option>Primavera</option><option>Estate</option><option>Autunno</option><option>Inverno</option></select></label><label class="filter">Stile<select id="searchStyle"><option value="">Tutti</option><option>Elegante</option><option>Da sera</option><option>Da giorno</option><option>Comodo</option><option>Sportivo</option></select></label></div><div class="grid" id="searchGrid"></div></section>
+
+<section class="screen" id="profile">
+  <div class="profilehead">
+    <button class="back" type="button" data-go="home" aria-label="Torna alla home"><i data-lucide="arrow-left"></i></button>
+    <div class="avatar large">GF</div>
+    <div>
+      <div class="eyebrow">PROFILO</div>
+      <h1 class="h1 profile-title">Le mie preferenze</h1>
+    </div>
+  </div>
+
+  <div class="settings-list">
+    <button class="setting" type="button">
+      <span><i data-lucide="palette"></i><b>Preferenze stile</b></span>
+      <i data-lucide="chevron-right"></i>
+    </button>
+    <button class="setting" type="button">
+      <span><i data-lucide="calendar-days"></i><b>Stagioni preferite</b></span>
+      <i data-lucide="chevron-right"></i>
+    </button>
+    <button class="setting" type="button">
+      <span><i data-lucide="sliders-horizontal"></i><b>Preferenze armadio</b></span>
+      <i data-lucide="chevron-right"></i>
+    </button>
+    <button class="setting" type="button">
+      <span><i data-lucide="database"></i><b>Dati e backup</b></span>
+      <i data-lucide="chevron-right"></i>
+    </button>
+  </div>
+
+  <div class="profile-note">
+    <b>Dregital</b>
+    <span>Qui potremo gestire in futuro le preferenze che influenzano i suggerimenti e l'organizzazione del tuo armadio.</span>
+  </div>
+</section>
+
+<section class="screen" id="inspiration"><div class="eyebrow">Le tue reference</div><h1 class="h1">Inspiration</h1><div class="stack"><button class="btn" id="addInspiration">+ Aggiungi immagine</button><input id="inspirationFile" type="file" accept="image/*" hidden></div><div class="section"><div class="inspire" id="inspirationGrid"></div></div></section>
+<section class="screen" id="outfits"><div class="eyebrow">Look reali</div><h1 class="h1">Outfit approvati</h1><button class="btn" id="addOutfit">+ Carica outfit</button><input id="outfitFile" type="file" accept="image/*" hidden><div class="section" id="outfitGrid"></div></section>
+</main>
+<nav class="bottom"><button class="nav active" data-screen="home" aria-label="Home"><i data-lucide="house"></i><span>Home</span></button><button class="nav" data-screen="wardrobe" aria-label="Armadio"><i data-lucide="shirt"></i><span>Armadio</span></button><button class="nav" data-screen="favorites" aria-label="Preferiti"><i data-lucide="heart"></i><span>Preferiti</span></button><button class="nav" id="addBtn" aria-label="Aggiungi"><span class="add"><i data-lucide="plus"></i></span><span>Aggiungi</span></button><button class="nav" data-screen="search" aria-label="Cerca"><i data-lucide="search"></i><span>Cerca</span></button></nav>
+</div>
+<div class="modal" id="addModal"><div class="sheet"><div class="sheethead"><b>Aggiungi capo</b><button class="close" id="closeModal">×</button></div><div class="stack"><button class="btn" id="singleUpload">📷 Foto di un capo</button><button class="btn secondary" id="multiUpload">▦ Scansiona più capi</button><input id="garmentFile" type="file" accept="image/*" hidden><input id="multiFile" type="file" accept="image/*" multiple hidden><img class="preview" id="preview"><div id="garmentForm" style="display:none"><div class="note">Scontorno automatico simulato nella V1. Il file originale viene salvato localmente; collegheremo il vero background removal nel prossimo step.</div><label class="label">Nome</label><input class="input" id="gName" value="Nuovo capo"><label class="label">Stagioni</label><div class="checkgrid" id="seasonChecks"></div><label class="label">Stile</label><div class="checkgrid" id="styleChecks"></div><button class="btn" id="saveGarment" style="margin-top:15px">Aggiungi all'armadio</button></div></div></div></div></div>
+<div class="toast" id="toast"></div>
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.js"></script>
+<script>
+const KEY='dregital-v1';const defaultData={garments:[{id:1,name:'Maglione beige',category:'Maglione',color:'Beige',style:['Comodo'],seasons:['Autunno','Inverno'],image:null,fav:true},{id:2,name:'Jeans blu',category:'Pantaloni',color:'Blu',style:['Da giorno','Comodo'],seasons:['Primavera','Estate','Autunno','Inverno'],image:null,fav:false},{id:3,name:'Camicia bianca',category:'Camicia',color:'Bianco',style:['Elegante','Da giorno'],seasons:['Primavera','Estate'],image:null,fav:true},{id:4,name:'Blazer nero',category:'Giacca',color:'Nero',style:['Elegante','Da sera'],seasons:['Autunno','Inverno'],image:null,fav:false}],inspiration:[],outfits:[]};let data=JSON.parse(localStorage.getItem(KEY)||'null')||defaultData;function save(){localStorage.setItem(KEY,JSON.stringify(data))}function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}function iconRefresh(){if(window.lucide)lucide.createIcons()}function garmentCard(g){return `<article class="card"><div class="garment">${`<button class="fav ${g.fav?'is-fav':''}" data-fav="${g.id}" aria-label="${g.fav?'Rimuovi dai preferiti':'Aggiungi ai preferiti'}"><i data-lucide="heart" aria-hidden="true"></i></button>`}${g.image?`<img src="${g.image}" alt="${g.name}">`:'<div class="shape"></div>'}</div><div class="cardbody"><b>${g.name}</b><span>${g.category} · ${g.color}</span></div></article>`}function filtered(list,q='',season='',style=''){q=q.toLowerCase();return list.filter(g=>(!q||`${g.name} ${g.category} ${g.color} ${g.style.join(' ')}`.toLowerCase().includes(q))&&(!season||g.seasons.includes(season))&&(!style||g.style.includes(style)))}function render(){document.getElementById('statTotal').textContent=data.garments.length;document.getElementById('statFav').textContent=data.garments.filter(x=>x.fav).length;document.getElementById('statOutfit').textContent=data.outfits.length;const favs=data.garments.filter(x=>x.fav).slice(0,4);document.getElementById('homeFavs').innerHTML=favs.length?favs.map(garmentCard).join(''):'<div class="empty">Ancora nessun preferito.</div>';document.getElementById('wardrobeGrid').innerHTML=filtered(data.garments,'',document.getElementById('wardSeason').value,document.getElementById('wardStyle').value).map(garmentCard).join('')||'<div class="empty">Nessun capo corrisponde ai filtri.</div>';document.getElementById('searchGrid').innerHTML=filtered(data.garments,document.getElementById('searchInput').value,document.getElementById('searchSeason').value,document.getElementById('searchStyle').value).map(garmentCard).join('')||'<div class="empty">Nessun capo trovato.</div>';document.getElementById('homeInspiration').innerHTML=data.inspiration.slice(0,3).map(x=>`<div class="pin"><img src="${x}" alt="Inspiration"></div>`).join('')||'<div class="empty">Salva le prime reference.</div>';document.getElementById('inspirationGrid').innerHTML=data.inspiration.map(x=>`<div class="pin"><img src="${x}" alt="Inspiration"></div>`).join('')||'<div class="empty">La tua galleria è ancora vuota.</div>';document.getElementById('outfitGrid').innerHTML=data.outfits.map(x=>`<div class="outfit"><img src="${x}" alt="Outfit approvato"></div>`).join('')||'<div class="empty">Carica il primo outfit allo specchio.</div>';document.getElementById('favoritesGrid').innerHTML=favs.map(garmentCard).join('')||'<div class="empty" style="grid-column:1/-1;text-align:center;padding:42px 16px">Nessun preferito ancora.<br><span style="font-size:12px;color:var(--muted)">Tocca il cuore su un capo per salvarlo qui.</span></div>';iconRefresh()}function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.nav[data-screen]').forEach(n=>n.classList.toggle('active',n.dataset.screen===id));window.scrollTo(0,0);render()}document.querySelectorAll('.nav[data-screen]').forEach(n=>n.addEventListener('click',()=>show(n.dataset.screen)));document.querySelectorAll('[data-go]').forEach(n=>n.addEventListener('click',()=>show(n.dataset.go)));document.getElementById('wardSeason').addEventListener('change',render);document.getElementById('wardStyle').addEventListener('change',render);document.getElementById('searchSeason').addEventListener('change',render);document.getElementById('searchStyle').addEventListener('change',render);document.getElementById('searchInput').addEventListener('input',render);document.addEventListener('click',e=>{const b=e.target.closest('[data-fav]');if(b){const g=data.garments.find(x=>x.id==b.dataset.fav);if(g){g.fav=!g.fav;save();render()}}});
+const modal=document.getElementById('addModal');document.getElementById('addBtn').addEventListener('click',()=>modal.classList.add('open'));document.getElementById('closeModal').addEventListener('click',()=>modal.classList.remove('open'));document.getElementById('singleUpload').addEventListener('click',()=>document.getElementById('garmentFile').click());document.getElementById('multiUpload').addEventListener('click',()=>document.getElementById('multiFile').click());const seasons=['Primavera','Estate','Autunno','Inverno'],styles=['Elegante','Da sera','Da giorno','Comodo','Sportivo'];document.getElementById('seasonChecks').innerHTML=seasons.map(x=>`<button type="button" class="check" data-season="${x}">${x}</button>`).join('');document.getElementById('styleChecks').innerHTML=styles.map(x=>`<button type="button" class="check" data-style="${x}">${x}</button>`).join('');document.querySelectorAll('.check').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('active')));let pendingImage=null;document.getElementById('garmentFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{pendingImage=r.result;const p=document.getElementById('preview');p.src=pendingImage;p.style.display='block';document.getElementById('garmentForm').style.display='block';toast('Foto acquisita')};r.readAsDataURL(f)});document.getElementById('multiFile').addEventListener('change',e=>{const files=[...e.target.files];if(!files.length)return;files.forEach((f,i)=>{const r=new FileReader();r.onload=()=>{data.garments.push({id:Date.now()+i,name:f.name.replace(/\.[^.]+$/,''),category:'Da classificare',color:'Da classificare',style:[],seasons:['Autunno'],image:r.result,fav:false});save();render()};r.readAsDataURL(f)});modal.classList.remove('open');toast(files.length+' capi aggiunti')});document.getElementById('saveGarment').addEventListener('click',()=>{const selectedSeasons=[...document.querySelectorAll('[data-season].active')].map(x=>x.dataset.season);const selectedStyles=[...document.querySelectorAll('[data-style].active')].map(x=>x.dataset.style);data.garments.push({id:Date.now(),name:document.getElementById('gName').value||'Nuovo capo',category:'Da classificare',color:'Da classificare',style:selectedStyles,seasons:selectedSeasons.length?selectedSeasons:['Autunno'],image:pendingImage,fav:false});save();modal.classList.remove('open');document.getElementById('garmentForm').style.display='none';document.getElementById('preview').style.display='none';pendingImage=null;document.getElementById('garmentFile').value='';render();show('wardrobe');toast('Capo aggiunto')});document.getElementById('addInspiration').addEventListener('click',()=>document.getElementById('inspirationFile').click());document.getElementById('inspirationFile').addEventListener('change',e=>[...e.target.files].forEach(f=>{const r=new FileReader();r.onload=()=>{data.inspiration.unshift(r.result);save();render();show('inspiration');toast('Inspiration salvata')};r.readAsDataURL(f)}));document.getElementById('addOutfit').addEventListener('click',()=>document.getElementById('outfitFile').click());document.getElementById('outfitFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{data.outfits.unshift(r.result);save();render();show('outfits');toast('Outfit approvato salvato')};r.readAsDataURL(f)});document.getElementById('profileAvatar').addEventListener('click',()=>show('profile'));if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});render();iconRefresh();
+</script>
+</body></html>
