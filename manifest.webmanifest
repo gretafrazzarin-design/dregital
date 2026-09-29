@@ -1,1 +1,1 @@
-{"name":"Dregital","short_name":"Dregital","start_url":"./index.html","id":"dregital","scope":"./","display":"standalone","background_color":"#ffffff","theme_color":"#ffffff","description":"Il tuo armadio digitale."}
+{"name":"Dregital","short_name":"Dregital","id":"dregital","start_url":"./index.html","scope":"./","display":"standalone","background_color":"#ffffff","theme_color":"#ffffff","description":"Il tuo armadio digitale."}
