@@ -130,6 +130,238 @@
 <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.js"></script>
 <script>
 const KEY='dregital-v1';const defaultData={garments:[{id:1,name:'Maglione beige',category:'Maglione',color:'Beige',style:['Comodo'],seasons:['Autunno','Inverno'],image:null,fav:true},{id:2,name:'Jeans blu',category:'Pantaloni',color:'Blu',style:['Da giorno','Comodo'],seasons:['Primavera','Estate','Autunno','Inverno'],image:null,fav:false},{id:3,name:'Camicia bianca',category:'Camicia',color:'Bianco',style:['Elegante','Da giorno'],seasons:['Primavera','Estate'],image:null,fav:true},{id:4,name:'Blazer nero',category:'Giacca',color:'Nero',style:['Elegante','Da sera'],seasons:['Autunno','Inverno'],image:null,fav:false}],inspiration:[],outfits:[]};let data=JSON.parse(localStorage.getItem(KEY)||'null')||defaultData;function save(){localStorage.setItem(KEY,JSON.stringify(data))}function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}function iconRefresh(){if(window.lucide)lucide.createIcons()}function garmentCard(g){return `<article class="card clickable" data-garment="${g.id}"><div class="garment">${`<button class="fav ${g.fav?'is-fav':''}" data-fav="${g.id}" aria-label="${g.fav?'Rimuovi dai preferiti':'Aggiungi ai preferiti'}"><i data-lucide="heart" aria-hidden="true"></i></button>`}${g.image?`<img src="${g.image}" alt="${g.name}">`:'<div class="shape"></div>'}</div><div class="cardbody"><b>${g.name}</b><span>${g.category} · ${g.color}</span></div></article>`}function filtered(list,q='',season='',style=''){q=q.toLowerCase();return list.filter(g=>(!q||`${g.name} ${g.category} ${g.color} ${g.style.join(' ')}`.toLowerCase().includes(q))&&(!season||g.seasons.includes(season))&&(!style||g.style.includes(style)))}function render(){document.getElementById('statTotal').textContent=data.garments.length;document.getElementById('statFav').textContent=data.garments.filter(x=>x.fav).length;document.getElementById('statOutfit').textContent=data.outfits.length;const favs=data.garments.filter(x=>x.fav).slice(0,4);document.getElementById('homeFavs').innerHTML=favs.length?favs.map(garmentCard).join(''):'<div class="empty">Ancora nessun preferito.</div>';document.getElementById('wardrobeGrid').innerHTML=filtered(data.garments,'',document.getElementById('wardSeason').value,document.getElementById('wardStyle').value).map(garmentCard).join('')||'<div class="empty">Nessun capo corrisponde ai filtri.</div>';document.getElementById('searchGrid').innerHTML=filtered(data.garments,document.getElementById('searchInput').value,document.getElementById('searchSeason').value,document.getElementById('searchStyle').value).map(garmentCard).join('')||'<div class="empty">Nessun capo trovato.</div>';document.getElementById('homeInspiration').innerHTML=data.inspiration.slice(0,3).map(x=>`<div class="pin"><img src="${x}" alt="Inspiration"></div>`).join('')||'<div class="empty">Salva le prime reference.</div>';document.getElementById('inspirationGrid').innerHTML=data.inspiration.map(x=>`<div class="pin"><img src="${x}" alt="Inspiration"></div>`).join('')||'<div class="empty">La tua galleria è ancora vuota.</div>';document.getElementById('outfitGrid').innerHTML=data.outfits.map(x=>`<div class="outfit"><img src="${x}" alt="Outfit approvato"></div>`).join('')||'<div class="empty">Carica il primo outfit allo specchio.</div>';document.getElementById('favoritesGrid').innerHTML=favs.map(garmentCard).join('')||'<div class="empty" style="grid-column:1/-1;text-align:center;padding:42px 16px">Nessun preferito ancora.<br><span style="font-size:12px;color:var(--muted)">Tocca il cuore su un capo per salvarlo qui.</span></div>';iconRefresh()}function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.nav[data-screen]').forEach(n=>n.classList.toggle('active',n.dataset.screen===id));window.scrollTo(0,0);render()}document.querySelectorAll('.nav[data-screen]').forEach(n=>n.addEventListener('click',()=>show(n.dataset.screen)));document.querySelectorAll('[data-go]').forEach(n=>n.addEventListener('click',()=>show(n.dataset.go)));document.getElementById('wardSeason').addEventListener('change',render);document.getElementById('wardStyle').addEventListener('change',render);document.getElementById('searchSeason').addEventListener('change',render);document.getElementById('searchStyle').addEventListener('change',render);document.getElementById('searchInput').addEventListener('input',render);document.addEventListener('click',e=>{const b=e.target.closest('[data-fav]');if(b){e.stopPropagation();const g=data.garments.find(x=>x.id==b.dataset.fav);if(g){g.fav=!g.fav;save();render()}}const card=e.target.closest('[data-garment]');if(card && !e.target.closest('[data-fav]')) openDetail(Number(card.dataset.garment));});
-function resetAddForm(){document.getElementById('gName').value='Nuovo capo';document.getElementById('gCategory').value='';document.getElementById('gColor').value='';document.querySelectorAll('#seasonChecks .check,#styleChecks .check').forEach(b=>b.classList.remove('active'));document.getElementById('garmentForm').style.display='none';document.getElementById('preview').style.display='none';pendingImage=null;document.getElementById('garmentFile').value=''}const modal=document.getElementById('addModal');document.getElementById('addBtn').addEventListener('click',()=>{resetAddForm();modal.classList.add('open')});document.getElementById('closeModal').addEventListener('click',()=>modal.classList.remove('open'));document.getElementById('singleUpload').addEventListener('click',()=>document.getElementById('garmentFile').click());document.getElementById('multiUpload').addEventListener('click',()=>document.getElementById('multiFile').click());const seasons=['Primavera','Estate','Autunno','Inverno'],styles=['Elegante','Da sera','Da giorno','Comodo','Sportivo'];document.getElementById('seasonChecks').innerHTML=seasons.map(x=>`<button type="button" class="check" data-season="${x}">${x}</button>`).join('');document.getElementById('styleChecks').innerHTML=styles.map(x=>`<button type="button" class="check" data-style="${x}">${x}</button>`).join('');document.querySelectorAll('.check').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('active')));let pendingImage=null;document.getElementById('garmentFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{pendingImage=r.result;const p=document.getElementById('preview');p.src=pendingImage;p.style.display='block';document.getElementById('garmentForm').style.display='block';toast('Foto acquisita')};r.readAsDataURL(f)});document.getElementById('multiFile').addEventListener('change',e=>{const files=[...e.target.files];if(!files.length)return;files.forEach((f,i)=>{const r=new FileReader();r.onload=()=>{data.garments.push({id:Date.now()+i,name:f.name.replace(/\.[^.]+$/,''),category:'Da classificare',color:'Da classificare',style:[],seasons:['Autunno'],image:r.result,fav:false});save();render()};r.readAsDataURL(f)});modal.classList.remove('open');toast(files.length+' capi aggiunti')});function saveNewGarment(){const selectedSeasons=[...document.querySelectorAll('#seasonChecks [data-season].active')].map(x=>x.dataset.season);const selectedStyles=[...document.querySelectorAll('#styleChecks [data-style].active')].map(x=>x.dataset.style);const name=document.getElementById('gName').value.trim()||'Nuovo capo';const category=document.getElementById('gCategory').value.trim()||'Da classificare';const color=document.getElementById('gColor').value.trim()||'Da classificare';if(!pendingImage){toast('Seleziona prima una foto');return}data.garments.push({id:Date.now(),name,category,color,style:selectedStyles,seasons:selectedSeasons.length?selectedSeasons:['Autunno'],image:pendingImage,fav:false});save();resetAddForm();modal.classList.remove('open');show('wardrobe');toast('Capo aggiunto all'armadio')}document.getElementById('saveGarment').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();saveNewGarment()});document.addEventListener('click',e=>{const b=e.target.closest('#saveGarment');if(b){e.preventDefault();e.stopPropagation();saveNewGarment()}});const detailModal=document.getElementById('detailModal');let detailId=null;function buildDetailChecks(){document.getElementById('detailSeasonChecks').innerHTML=seasons.map(x=>`<button type="button" class="check" data-detail-season="${x}">${x}</button>`).join('');document.getElementById('detailStyleChecks').innerHTML=styles.map(x=>`<button type="button" class="check" data-detail-style="${x}">${x}</button>`).join('');document.querySelectorAll('[data-detail-season],[data-detail-style]').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('active')))}function openDetail(id){const g=data.garments.find(x=>x.id===id);if(!g)return;detailId=id;document.getElementById('detailTitle').textContent=g.name;document.getElementById('detailName').value=g.name;document.getElementById('detailCategory').value=g.category||'';document.getElementById('detailColor').value=g.color||'';const photo=document.getElementById('detailPhoto');if(g.image){photo.src=g.image;photo.style.display='block'}else{photo.style.display='none'}document.querySelectorAll('[data-detail-season]').forEach(b=>b.classList.toggle('active',g.seasons.includes(b.dataset.detailSeason)));document.querySelectorAll('[data-detail-style]').forEach(b=>b.classList.toggle('active',g.style.includes(b.dataset.detailStyle)));detailModal.classList.add('open');iconRefresh()}document.getElementById('closeDetail').addEventListener('click',()=>detailModal.classList.remove('open'));document.getElementById('saveDetail').addEventListener('click',()=>{const g=data.garments.find(x=>x.id===detailId);if(!g)return;g.name=document.getElementById('detailName').value.trim()||'Nuovo capo';g.category=document.getElementById('detailCategory').value.trim()||'Da classificare';g.color=document.getElementById('detailColor').value.trim()||'Da classificare';g.seasons=[...document.querySelectorAll('[data-detail-season].active')].map(x=>x.dataset.detailSeason);g.style=[...document.querySelectorAll('[data-detail-style].active')].map(x=>x.dataset.detailStyle);if(!g.seasons.length)g.seasons=['Autunno'];save();detailModal.classList.remove('open');render();toast('Modifiche salvate')});document.getElementById('deleteDetail').addEventListener('click',()=>{const g=data.garments.find(x=>x.id===detailId);if(!g)return;if(!confirm(`Eliminare “${g.name}” dall'armadio?`))return;data.garments=data.garments.filter(x=>x.id!==detailId);save();detailModal.classList.remove('open');render();toast('Capo eliminato')});buildDetailChecks();document.getElementById('addInspiration').addEventListener('click',()=>document.getElementById('inspirationFile').click());document.getElementById('inspirationFile').addEventListener('change',e=>[...e.target.files].forEach(f=>{const r=new FileReader();r.onload=()=>{data.inspiration.unshift(r.result);save();render();show('inspiration');toast('Inspiration salvata')};r.readAsDataURL(f)}));document.getElementById('addOutfit').addEventListener('click',()=>document.getElementById('outfitFile').click());document.getElementById('outfitFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{data.outfits.unshift(r.result);save();render();show('outfits');toast('Outfit approvato salvato')};r.readAsDataURL(f)});document.getElementById('profileAvatar').addEventListener('click',()=>show('profile'));if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});render();iconRefresh();
+let pendingImage=null;
+
+function resetAddForm(){
+  document.getElementById('gName').value='Nuovo capo';
+  document.getElementById('gCategory').value='';
+  document.getElementById('gColor').value='';
+  document.querySelectorAll('#seasonChecks .check,#styleChecks .check').forEach(b=>b.classList.remove('active'));
+  document.getElementById('garmentForm').style.display='none';
+  document.getElementById('preview').style.display='none';
+  pendingImage=null;
+  document.getElementById('garmentFile').value='';
+}
+
+const modal=document.getElementById('addModal');
+const addBtn=document.getElementById('addBtn');
+const closeModal=document.getElementById('closeModal');
+const singleUpload=document.getElementById('singleUpload');
+const multiUpload=document.getElementById('multiUpload');
+const garmentFile=document.getElementById('garmentFile');
+const multiFile=document.getElementById('multiFile');
+const saveGarment=document.getElementById('saveGarment');
+
+addBtn.addEventListener('click',()=>{
+  resetAddForm();
+  modal.classList.add('open');
+});
+closeModal.addEventListener('click',()=>modal.classList.remove('open'));
+singleUpload.addEventListener('click',()=>garmentFile.click());
+multiUpload.addEventListener('click',()=>multiFile.click());
+
+const seasons=['Primavera','Estate','Autunno','Inverno'];
+const styles=['Elegante','Da sera','Da giorno','Comodo','Sportivo'];
+
+document.getElementById('seasonChecks').innerHTML=seasons.map(x=>
+  `<button type="button" class="check" data-season="${x}">${x}</button>`
+).join('');
+
+document.getElementById('styleChecks').innerHTML=styles.map(x=>
+  `<button type="button" class="check" data-style="${x}">${x}</button>`
+).join('');
+
+document.querySelectorAll('.check').forEach(b=>
+  b.addEventListener('click',()=>b.classList.toggle('active'))
+);
+
+garmentFile.addEventListener('change',e=>{
+  const f=e.target.files && e.target.files[0];
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    pendingImage=r.result;
+    const preview=document.getElementById('preview');
+    preview.src=pendingImage;
+    preview.style.display='block';
+    document.getElementById('garmentForm').style.display='block';
+    toast('Foto acquisita');
+  };
+  r.readAsDataURL(f);
+});
+
+multiFile.addEventListener('change',e=>{
+  const files=[...(e.target.files||[])];
+  if(!files.length)return;
+  let completed=0;
+  files.forEach((f,i)=>{
+    const r=new FileReader();
+    r.onload=()=>{
+      data.garments.push({
+        id:Date.now()+i,
+        name:f.name.replace(/\.[^.]+$/,''),
+        category:'Da classificare',
+        color:'Da classificare',
+        style:[],
+        seasons:['Autunno'],
+        image:r.result,
+        fav:false
+      });
+      completed++;
+      if(completed===files.length){
+        save();
+        render();
+        modal.classList.remove('open');
+        toast(files.length+' capi aggiunti');
+      }
+    };
+    r.readAsDataURL(f);
+  });
+});
+
+function saveNewGarment(){
+  const selectedSeasons=[...document.querySelectorAll('#seasonChecks [data-season].active')].map(x=>x.dataset.season);
+  const selectedStyles=[...document.querySelectorAll('#styleChecks [data-style].active')].map(x=>x.dataset.style);
+  const name=document.getElementById('gName').value.trim()||'Nuovo capo';
+  const category=document.getElementById('gCategory').value.trim()||'Da classificare';
+  const color=document.getElementById('gColor').value.trim()||'Da classificare';
+
+  if(!pendingImage){
+    toast('Seleziona prima una foto');
+    return;
+  }
+
+  data.garments.push({
+    id:Date.now(),
+    name,
+    category,
+    color,
+    style:selectedStyles,
+    seasons:selectedSeasons.length?selectedSeasons:['Autunno'],
+    image:pendingImage,
+    fav:false
+  });
+
+  save();
+  resetAddForm();
+  modal.classList.remove('open');
+  show('wardrobe');
+  toast('Capo aggiunto all’armadio');
+}
+
+saveGarment.addEventListener('click',e=>{
+  e.preventDefault();
+  e.stopPropagation();
+  saveNewGarment();
+});
+
+const detailModal=document.getElementById('detailModal');
+let detailId=null;
+
+function buildDetailChecks(){
+  document.getElementById('detailSeasonChecks').innerHTML=seasons.map(x=>
+    `<button type="button" class="check" data-detail-season="${x}">${x}</button>`
+  ).join('');
+  document.getElementById('detailStyleChecks').innerHTML=styles.map(x=>
+    `<button type="button" class="check" data-detail-style="${x}">${x}</button>`
+  ).join('');
+  document.querySelectorAll('[data-detail-season],[data-detail-style]').forEach(b=>
+    b.addEventListener('click',()=>b.classList.toggle('active'))
+  );
+}
+
+function openDetail(id){
+  const g=data.garments.find(x=>x.id===id);
+  if(!g)return;
+  detailId=id;
+  document.getElementById('detailTitle').textContent=g.name;
+  document.getElementById('detailName').value=g.name;
+  document.getElementById('detailCategory').value=g.category||'';
+  document.getElementById('detailColor').value=g.color||'';
+  const photo=document.getElementById('detailPhoto');
+  if(g.image){
+    photo.src=g.image;
+    photo.style.display='block';
+  }else{
+    photo.style.display='none';
+  }
+  document.querySelectorAll('[data-detail-season]').forEach(b=>
+    b.classList.toggle('active',g.seasons.includes(b.dataset.detailSeason))
+  );
+  document.querySelectorAll('[data-detail-style]').forEach(b=>
+    b.classList.toggle('active',g.style.includes(b.dataset.detailStyle))
+  );
+  detailModal.classList.add('open');
+  iconRefresh();
+}
+
+document.getElementById('closeDetail').addEventListener('click',()=>detailModal.classList.remove('open'));
+
+document.getElementById('saveDetail').addEventListener('click',()=>{
+  const g=data.garments.find(x=>x.id===detailId);
+  if(!g)return;
+  g.name=document.getElementById('detailName').value.trim()||'Nuovo capo';
+  g.category=document.getElementById('detailCategory').value.trim()||'Da classificare';
+  g.color=document.getElementById('detailColor').value.trim()||'Da classificare';
+  g.seasons=[...document.querySelectorAll('[data-detail-season].active')].map(x=>x.dataset.detailSeason);
+  g.style=[...document.querySelectorAll('[data-detail-style].active')].map(x=>x.dataset.detailStyle);
+  if(!g.seasons.length)g.seasons=['Autunno'];
+  save();
+  detailModal.classList.remove('open');
+  render();
+  toast('Modifiche salvate');
+});
+
+document.getElementById('deleteDetail').addEventListener('click',()=>{
+  const g=data.garments.find(x=>x.id===detailId);
+  if(!g)return;
+  if(!confirm(`Eliminare “${g.name}” dall'armadio?`))return;
+  data.garments=data.garments.filter(x=>x.id!==detailId);
+  save();
+  detailModal.classList.remove('open');
+  render();
+  toast('Capo eliminato');
+});
+
+buildDetailChecks();
+
+document.getElementById('addInspiration').addEventListener('click',()=>document.getElementById('inspirationFile').click());
+document.getElementById('inspirationFile').addEventListener('change',e=>{
+  [...(e.target.files||[])].forEach(f=>{
+    const r=new FileReader();
+    r.onload=()=>{
+      data.inspiration.unshift(r.result);
+      save();
+      render();
+      show('inspiration');
+      toast('Inspiration salvata');
+    };
+    r.readAsDataURL(f);
+  });
+});
+
+document.getElementById('addOutfit').addEventListener('click',()=>document.getElementById('outfitFile').click());
+document.getElementById('outfitFile').addEventListener('change',e=>{
+  const f=e.target.files && e.target.files[0];
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    data.outfits.unshift(r.result);
+    save();
+    render();
+    show('outfits');
+    toast('Outfit approvato salvato');
+  };
+  r.readAsDataURL(f);
+});
+
+document.getElementById('profileAvatar').addEventListener('click',()=>show('profile'));
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+
+render();
+iconRefresh();
 </script>
 </body></html>
